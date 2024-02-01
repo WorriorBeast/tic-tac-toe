@@ -1,0 +1,44 @@
+:root {
+   font-size: 16px;
+}
+
+body {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin: 0;
+}
+
+html, body {
+   background-color: #0e1732;
+   height: 100%;
+   color: white;
+}
+
+h1 {
+   margin: 20px 0 0;
+}
+
+.game-board {
+   height: 425px;
+   width: 425px;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 135px);
+   grid-template-rows: repeat(3, 135px);
+   gap: 10px;
+   margin-top: 90px;
+}
+
+.game-tile {
+   background-color: #d8d8d8;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 20%;
+}
+
+.pawn {
+   font-size: 6rem;
+   color: #0e1732;
+   font-family: fantasy;
+}
