@@ -37,6 +37,11 @@ h1 {
    border-radius: 20%;
 }
 
+.game-tile:hover {
+   background-color: white;
+   cursor: pointer;
+}
+
 .pawn {
    font-size: 6rem;
    color: #0e1732;
