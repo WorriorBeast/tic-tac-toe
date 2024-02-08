@@ -47,7 +47,7 @@ const gameBoard = (function() {
                console.log('no winner yet 1');
 
             } else if (gameBoardFilled == 9 && !winner.player1Winner && !winner.player2Winner) {
-               updateScoreboard.tie();
+               updateScoreboard.updateTie();
             }
          });
       }
@@ -59,7 +59,6 @@ const player = (function() {
    const createPlayer = (user, pawn) => {
       let gameWin = 0;
       let gameLoss = 0;
-      let draw = 0;
 
       const getWins = () => gameWin;
       const wins = () => gameWin++;
@@ -67,10 +66,7 @@ const player = (function() {
       const getLoses = () => gameLoss;
       const loses = () => gameLoss++;
 
-      const getTies = () => draw;
-      const ties = () => draw++;
-
-      return {user, pawn, getWins, wins, getLoses, loses, getTies, ties};
+      return {user, pawn, getWins, wins, getLoses, loses};
    }
 
    const player1 = createPlayer('Player 1', 'X');
@@ -105,16 +101,19 @@ const updateScoreboard = (function() {
       p2Win.textContent = `Wins: ${player2.getWins()}`;
    };
 
-   const tie = () => {
+   const updateTie = () => {
       const draw = document.querySelectorAll('.ties');
+      let tieCount = 0;
 
-      player1.ties();
-      player2.ties();
+      const incrementTie = () => tieCount++;
+      incrementTie();
+
+      const getTieCount = () => tieCount;
 
       for (let i = 0; i < draw.length; i++) {
-         draw[i].textContent = `Ties: ${player1.getTies()}`;
+         draw[i].textContent = `Ties: ${getTieCount()}`;
       }
    };
 
-   return {updateScoreP1Winner, updateScoreP2Winner, tie};
+   return {updateScoreP1Winner, updateScoreP2Winner, updateTie};
 })();
