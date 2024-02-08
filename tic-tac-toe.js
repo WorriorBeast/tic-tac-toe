@@ -38,16 +38,16 @@ const gameBoard = (function() {
             const gameBoardFilled = player1Tiles.length + player2Tiles.length;
 
             if (winner.player1Winner && !winner.player2Winner) {
-               console.log('p1 winner');
+               updateScoreboard.updateScoreP1Winner();
 
             } else if (winner.player2Winner && !winner.player1Winner) {
-               console.log('p2 winner');
+               updateScoreboard.updateScoreP2Winner();
                
             } else if (!winner.player1Winner && !winner.player2Winner && gameBoardFilled !== 9) {
                console.log('no winner yet 1');
 
             } else if (gameBoardFilled == 9 && !winner.player1Winner && !winner.player2Winner) {
-               console.log('draw');
+               updateScoreboard.tie();
             }
          });
       }
@@ -77,4 +77,44 @@ const player = (function() {
    const player2 = createPlayer('Player 2', 'O');
    
    return {player1, player2};
+})();
+
+const updateScoreboard = (function() {
+   const player1 = player.player1;
+   const player2 = player.player2;
+
+   const updateScoreP1Winner = () => {
+      const p1Win = document.querySelector('.p1-scoreboard .wins');
+      const p2Loss = document.querySelector('.p2-scoreboard .loses');
+
+      player1.wins();
+      p1Win.textContent = `Wins: ${player1.getWins()}`;
+
+      player2.loses();
+      p2Loss.textContent = `Loses: ${player2.getLoses()}`;
+   };
+
+   const updateScoreP2Winner = () => {
+      const p1Loss = document.querySelector('.p1-scoreboard .loses');
+      const p2Win = document.querySelector('.p2-scoreboard .wins');
+
+      player1.loses();
+      p1Loss.textContent = `Loses: ${player1.getLoses()}`;
+
+      player2.wins();
+      p2Win.textContent = `Wins: ${player2.getWins()}`;
+   };
+
+   const tie = () => {
+      const draw = document.querySelectorAll('.ties');
+
+      player1.ties();
+      player2.ties();
+
+      for (let i = 0; i < draw.length; i++) {
+         draw[i].textContent = `Ties: ${player1.getTies()}`;
+      }
+   };
+
+   return {updateScoreP1Winner, updateScoreP2Winner, tie};
 })();
