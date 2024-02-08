@@ -54,3 +54,27 @@ const gameBoard = (function() {
    }
    playGame();
 })();
+
+const player = (function() {
+   const createPlayer = (user, pawn) => {
+      let gameWin = 0;
+      let gameLoss = 0;
+      let draw = 0;
+
+      const getWins = () => gameWin;
+      const wins = () => gameWin++;
+
+      const getLoses = () => gameLoss;
+      const loses = () => gameLoss++;
+
+      const getTies = () => draw;
+      const ties = () => draw++;
+
+      return {user, pawn, getWins, wins, getLoses, loses, getTies, ties};
+   }
+
+   const player1 = createPlayer('Player 1', 'X');
+   const player2 = createPlayer('Player 2', 'O');
+   
+   return {player1, player2};
+})();
