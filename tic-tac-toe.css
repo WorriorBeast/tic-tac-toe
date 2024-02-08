@@ -6,13 +6,13 @@ body {
    display: flex;
    flex-direction: column;
    align-items: center;
-   margin: 0;
 }
 
 html, body {
    background-color: #0e1732;
    height: 100%;
    color: white;
+   margin: 0;
 }
 
 h1 {
@@ -45,5 +45,27 @@ h1 {
 .pawn {
    font-size: 6rem;
    color: #0e1732;
+}
+
+.pawn,
+.chosen-pawn {
    font-family: fantasy;
+}
+
+.game {
+   display: grid;
+   grid-template-rows: 1fr;
+   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.player1-container,
+.player2-container {
+   justify-self: center;
+   line-height: 1.7;
+}
+
+.player1-name,
+.player2-name {
+   margin: 50px 0 20px;
+   font-size: 1.2rem;
 }
