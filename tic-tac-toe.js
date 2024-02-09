@@ -59,6 +59,20 @@ const gameBoard = (function() {
       }
    }
    playGame();
+
+   const resetGameBoard = () => {
+      const pawn = document.querySelectorAll('.pawn');
+
+      player1Tiles = [];
+      player2Tiles = [];
+      switchPlayer = 1;
+
+      for (let i = 0; i < pawn.length; i++) {
+         pawn[i].textContent = '';
+      }
+   };
+
+   return {resetGameBoard};
 })();
 
 const player = (function() {
@@ -135,6 +149,7 @@ const gameResult = (function() {
    const closeResult = () => {
       if (dialog.open == true) {
          dialog.addEventListener('click', () => {
+            gameBoard.resetGameBoard();
             dialog.close();
          })
       }
