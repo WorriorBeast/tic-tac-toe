@@ -18,19 +18,22 @@ const gameBoard = (function() {
       for (let i = 0; i < gameTile.length; i++) {
          gameTile[i].addEventListener('click', function() {
             let emptyTile = this.firstElementChild.textContent;
+            let pawn = this.firstElementChild;
 
             if (switchPlayer == 1 && emptyTile == '') {
                player1Tiles.push(i);
 
                this.firstElementChild.textContent = 'X';
-
+               pawn.style.cssText = `color: ${player.player1.color}`;
+               
                switchPlayer = 2;
 
             } else if (switchPlayer == 2 && emptyTile == '') {
                player2Tiles.push(i);
 
                this.firstElementChild.textContent = 'O';
-
+               pawn.style.cssText = `color: ${player.player2.color}`;
+               
                switchPlayer = 1;
             }
 
@@ -39,12 +42,12 @@ const gameBoard = (function() {
 
             if (winner.player1Winner && !winner.player2Winner) {
                updateScoreboard.updateScoreP1Winner();
-               gameResult.showResult('Player 1 won!');
+               gameResult.showResult('Player 1 won!', `${player.player1.color}`);
                gameResult.closeResult();
 
             } else if (winner.player2Winner && !winner.player1Winner) {
                updateScoreboard.updateScoreP2Winner();
-               gameResult.showResult('Player 2 won!');
+               gameResult.showResult('Player 2 won!', `${player.player2.color}`);
                gameResult.closeResult();
                
             } else if (!winner.player1Winner && !winner.player2Winner && gameBoardFilled !== 9) {
@@ -52,7 +55,7 @@ const gameBoard = (function() {
 
             } else if (gameBoardFilled == 9 && !winner.player1Winner && !winner.player2Winner) {
                updateScoreboard.updateTie();
-               gameResult.showResult(`Draw!`);
+               gameResult.showResult(`Draw!`, '#007fff');
                gameResult.closeResult();
             }
          });
@@ -76,7 +79,7 @@ const gameBoard = (function() {
 })();
 
 const player = (function() {
-   const createPlayer = (user, pawn) => {
+   const createPlayer = (user, pawn, color) => {
       let gameWin = 0;
       let gameLoss = 0;
 
@@ -86,11 +89,11 @@ const player = (function() {
       const getLoses = () => gameLoss;
       const loses = () => gameLoss++;
 
-      return {user, pawn, getWins, wins, getLoses, loses};
+      return {user, pawn, color, getWins, wins, getLoses, loses};
    }
 
-   const player1 = createPlayer('Player 1', 'X');
-   const player2 = createPlayer('Player 2', 'O');
+   const player1 = createPlayer('Player 1', 'X', '#818cf8');
+   const player2 = createPlayer('Player 2', 'O', 'orange');
    
    return {player1, player2};
 })();
@@ -141,8 +144,9 @@ const updateScoreboard = (function() {
 const gameResult = (function() {
    const dialog = document.querySelector('dialog');
    
-   const showResult = (gameResult) => {
+   const showResult = (gameResult, textColor) => {
       dialog.textContent = gameResult;
+      dialog.style.cssText = `color: ${textColor}`;
       dialog.showModal();
    };
 

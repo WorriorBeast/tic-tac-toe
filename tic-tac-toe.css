@@ -65,6 +65,16 @@ h1 {
 }
 
 .player1-name,
+.p1-scoreboard  div:not([class]) .chosen-pawn {
+   color: #818cf8;
+}
+
+.player2-name,
+.p2-scoreboard  div:not([class]) .chosen-pawn {
+   color: orange;
+}
+
+.player1-name,
 .player2-name {
    margin: 50px 0 20px;
    font-size: 1.2rem;
