@@ -39,15 +39,21 @@ const gameBoard = (function() {
 
             if (winner.player1Winner && !winner.player2Winner) {
                updateScoreboard.updateScoreP1Winner();
+               gameResult.showResult('Player 1 won!');
+               gameResult.closeResult();
 
             } else if (winner.player2Winner && !winner.player1Winner) {
                updateScoreboard.updateScoreP2Winner();
+               gameResult.showResult('Player 2 won!');
+               gameResult.closeResult();
                
             } else if (!winner.player1Winner && !winner.player2Winner && gameBoardFilled !== 9) {
                console.log('no winner yet 1');
 
             } else if (gameBoardFilled == 9 && !winner.player1Winner && !winner.player2Winner) {
                updateScoreboard.updateTie();
+               gameResult.showResult(`Draw!`);
+               gameResult.closeResult();
             }
          });
       }
@@ -116,4 +122,23 @@ const updateScoreboard = (function() {
    };
 
    return {updateScoreP1Winner, updateScoreP2Winner, updateTie};
+})();
+
+const gameResult = (function() {
+   const dialog = document.querySelector('dialog');
+   
+   const showResult = (gameResult) => {
+      dialog.textContent = gameResult;
+      dialog.showModal();
+   };
+
+   const closeResult = () => {
+      if (dialog.open == true) {
+         dialog.addEventListener('click', () => {
+            dialog.close();
+         })
+      }
+   };
+
+   return {showResult, closeResult};
 })();
