@@ -65,17 +65,19 @@ h1 {
 }
 
 .player1-name,
-.p1-scoreboard  div:not([class]) .chosen-pawn {
+.p1-scoreboard  div:not([class]) .chosen-pawn,
+.show-player1-name {
    color: #818cf8;
 }
 
 .player2-name,
-.p2-scoreboard  div:not([class]) .chosen-pawn {
+.p2-scoreboard  div:not([class]) .chosen-pawn,
+.show-player2-name {
    color: orange;
 }
 
-.player1-name,
-.player2-name {
+.show-player1-name,
+.show-player2-name {
    margin: 50px 0 20px;
    font-size: 1.2rem;
 }
@@ -89,4 +91,85 @@ dialog {
 
 ::backdrop {
    background-color: rgb(0,0,0,0.2);
+}
+
+.player1-container .change-name,
+.player1-container .change-pawn {
+   border: 1px solid #818cf8;
+   color: #818cf8;
+}
+
+.player2-container .change-name,
+.player2-container .change-pawn {
+   border: 1px solid orange;
+   color: orange;
+}
+
+.player1-container .change-name,
+.player2-container .change-name,
+.player1-container .change-pawn,
+.player2-container .change-pawn {
+   display: block;
+   background: transparent;
+   cursor: pointer;
+   border-radius: 12px;
+   margin-top: 20px;
+   padding: 3px 5px;
+}
+
+input:focus {
+   outline: none;
+}
+
+.hide-p1-name-form,
+.hide-p2-name-form {
+   height: 0;
+   width: 0;
+}
+
+.hide-p1-name-input,
+.hide-p2-name-input {
+   border: none;
+   padding: 0;
+   height: 0;
+   width: 0;
+}
+
+.show-p1-name-input {
+   color: #818cf8;
+}
+
+.show-p2-name-input {
+   color: orange;
+}
+
+.show-p1-name-input,
+.show-p2-name-input {
+   background-color: transparent;
+   margin-top: 50px;
+   font-size: 1.2rem;
+   width: 98px;
+   height: 32.64px;
+}
+
+.p1-press-enter-msg {
+   color: #818cf8;
+}
+
+.p2-press-enter-msg {
+   color: orange;
+}
+
+.p1-press-enter-msg,
+.p2-press-enter-msg {
+   font-size: 0.7rem;
+   margin: -8px 0 8.9px;
+}
+
+#p1-name-input::placeholder {
+   color: #818cf8;
+}
+
+#p2-name-input::placeholder {
+   color: orange;
 }
