@@ -253,9 +253,10 @@ const updateScoreboard = (function() {
       p2Win.textContent = `Wins: ${player2.getWins()}`;
    };
 
+   let tieCount = 0;
+
    const updateTie = () => {
       const draw = document.querySelectorAll('.ties');
-      let tieCount = 0;
 
       const incrementTie = () => tieCount++;
       incrementTie();
