@@ -42,12 +42,12 @@ const gameBoard = (function() {
 
             if (winner.player1Winner && !winner.player2Winner) {
                updateScoreboard.updateScoreP1Winner();
-               gameResult.showResult('Player 1 won!', `${player.player1.color}`);
+               gameResult.showResult(`${player.player1.user} won!`, `${player.player1.color}`);
                gameResult.closeResult();
 
             } else if (winner.player2Winner && !winner.player1Winner) {
                updateScoreboard.updateScoreP2Winner();
-               gameResult.showResult('Player 2 won!', `${player.player2.color}`);
+               gameResult.showResult(`${player.player2.user} won!`, `${player.player2.color}`);
                gameResult.closeResult();
                
             } else if (!winner.player1Winner && !winner.player2Winner && gameBoardFilled !== 9) {
@@ -96,6 +96,138 @@ const player = (function() {
    const player2 = createPlayer('Player 2', 'O', 'orange');
    
    return {player1, player2};
+})();
+
+const updatePlayerName = (function() {
+   const editNameBtn = document.querySelectorAll('.change-name');
+
+   (function() {
+      const userNameInput = document.querySelector('#p1-name-input');
+      const nameDisplay = document.querySelector('#player1-name');
+      const p1Form = document.querySelector('#p1-name');
+      const pressEnterMsg = document.querySelector('#p1-name > div');
+
+      const p1NameChange = () => {
+         if (nameDisplay.classList.contains('show-player1-name')){
+            p1Form.classList.toggle('hide-p1-name-form');
+
+            nameDisplay.textContent = '';
+            nameDisplay.classList.toggle('show-player1-name');
+
+            userNameInput.setAttribute('placeholder', 'New Name');
+            userNameInput.classList.toggle('show-p1-name-input');
+            userNameInput.focus();
+
+            pressEnterMsg.textContent = 'Press Enter to submit';
+            pressEnterMsg.classList.toggle('p1-press-enter-msg');
+
+         } else {
+            p1Form.reset();
+            p1Form.classList.toggle('hide-p1-name-form');
+
+            userNameInput.removeAttribute('placeholder');
+            userNameInput.classList.toggle('show-p1-name-input');
+
+            nameDisplay.textContent = player.player1.user;
+            nameDisplay.classList.toggle('show-player1-name');
+
+            pressEnterMsg.textContent = '';
+            pressEnterMsg.classList.toggle('p1-press-enter-msg');
+         }
+      };
+
+      const p1SubmitName = (e) => {
+         let characterCount = userNameInput.value.split('');
+         
+         if (e.code == 'Enter' && characterCount.length < 1) {
+            e.preventDefault();
+
+         } else if(e.code == 'Enter') {
+            e.preventDefault();
+
+            player.player1.user = userNameInput.value.toUpperCase();
+
+            nameDisplay.classList.toggle('show-player1-name');
+            nameDisplay.textContent = player.player1.user;
+
+            p1Form.classList.toggle('hide-p1-name-form');
+            p1Form.reset();
+
+            userNameInput.classList.toggle('show-p1-name-input');
+            userNameInput.removeAttribute('placeholder');
+
+            pressEnterMsg.textContent = '';
+            pressEnterMsg.classList.toggle('p1-press-enter-msg');         
+         }
+      };
+      editNameBtn[0].addEventListener('click', p1NameChange);
+
+      userNameInput.addEventListener('keydown', p1SubmitName);
+   })();
+
+   (function() {
+      const userNameInput = document.querySelector('#p2-name-input');
+      const nameDisplay = document.querySelector('#player2-name');
+      const p1Form = document.querySelector('#p2-name');
+      const pressEnterMsg = document.querySelector('#p2-name > div');
+
+      const p2NameChange = () => {
+         if (nameDisplay.classList.contains('show-player2-name')){
+            p1Form.classList.toggle('hide-p2-name-form');
+
+            nameDisplay.textContent = '';
+            nameDisplay.classList.toggle('show-player2-name');
+
+            userNameInput.setAttribute('placeholder', 'New Name');
+            userNameInput.classList.toggle('show-p2-name-input');
+            userNameInput.focus();
+
+            pressEnterMsg.textContent = 'Press Enter to submit';
+            pressEnterMsg.classList.toggle('p2-press-enter-msg');
+
+         } else {
+            p1Form.reset();
+            p1Form.classList.toggle('hide-p2-name-form');
+
+            userNameInput.removeAttribute('placeholder');
+            userNameInput.classList.toggle('show-p2-name-input');
+
+            nameDisplay.textContent = player.player2.user;
+            nameDisplay.classList.toggle('show-player2-name');
+
+            pressEnterMsg.textContent = '';
+            pressEnterMsg.classList.toggle('p2-press-enter-msg');
+         }
+      };
+
+      const p2SubmitName = (e) => {
+         let characterCount = userNameInput.value.split('');
+         
+         if (e.code == 'Enter' && characterCount.length < 1) {
+            e.preventDefault();
+
+         } else if(e.code == 'Enter') {
+            e.preventDefault();
+
+            player.player2.user = userNameInput.value.toUpperCase();
+
+            nameDisplay.classList.toggle('show-player2-name');
+            nameDisplay.textContent = player.player2.user;
+
+            p1Form.classList.toggle('hide-p2-name-form');
+            p1Form.reset();
+
+            userNameInput.classList.toggle('show-p2-name-input');
+            userNameInput.removeAttribute('placeholder');
+
+            pressEnterMsg.textContent = '';
+            pressEnterMsg.classList.toggle('p2-press-enter-msg');         
+         }
+      };
+      editNameBtn[1].addEventListener('click', p2NameChange);
+
+      userNameInput.addEventListener('keydown', p2SubmitName);
+   })();
 })();
 
 const updateScoreboard = (function() {
