@@ -11,7 +11,11 @@
    <h1>Tic Tac Toe</h1>
    <div class="game">
       <div class="player1-container">
-         <div class="player1-name">PLAYER 1</div>
+         <div id="player1-name" class="show-player1-name">PLAYER 1</div>
+         <form action="#" method="post" id="p1-name" class="hide-p1-name-form">
+            <input type="text" name="p1-new-name" id="p1-name-input" maxlength="9" class="hide-p1-name-input">
+            <div></div>
+         </form>
          <div class="p1-scoreboard">
             <div class="wins">Wins: 0</div>
             <div class="loses">Loses: 0</div>
@@ -51,7 +55,11 @@
          </div>
       </div>
       <div class="player2-container">
-         <div class="player2-name">PLAYER 2</div>
+         <div id="player2-name" class="show-player2-name">PLAYER 2</div>
+         <form action="#" method="post" id="p2-name" class="hide-p2-name-form">
+            <input type="text" name="p2-new-name" id="p2-name-input" maxlength="9" class="hide-p2-name-input">
+            <div></div>
+         </form>
          <div class="p2-scoreboard">
             <div class="wins">Wins: 0</div>
             <div class="loses">Loses: 0</div>
