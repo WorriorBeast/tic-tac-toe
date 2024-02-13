@@ -50,9 +50,6 @@ const gameBoard = (function() {
                gameResult.showResult(`${player.player2.user} won!`, `${player.player2.color}`);
                gameResult.closeResult();
                
-            } else if (!winner.player1Winner && !winner.player2Winner && gameBoardFilled !== 9) {
-               console.log('no winner yet 1');
-
             } else if (gameBoardFilled == 9 && !winner.player1Winner && !winner.player2Winner) {
                updateScoreboard.updateTie();
                gameResult.showResult(`Draw!`, '#007fff');
