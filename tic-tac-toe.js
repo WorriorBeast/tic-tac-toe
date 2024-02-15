@@ -23,7 +23,7 @@ const gameBoard = (function() {
             if (switchPlayer == 1 && emptyTile == '') {
                player1Tiles.push(i);
 
-               this.firstElementChild.textContent = 'X';
+               this.firstElementChild.textContent = player.player1.pawn;
                pawn.style.cssText = `color: ${player.player1.color}`;
                
                switchPlayer = 2;
@@ -31,7 +31,7 @@ const gameBoard = (function() {
             } else if (switchPlayer == 2 && emptyTile == '') {
                player2Tiles.push(i);
 
-               this.firstElementChild.textContent = 'O';
+               this.firstElementChild.textContent = player.player2.pawn;
                pawn.style.cssText = `color: ${player.player2.color}`;
                
                switchPlayer = 1;
@@ -169,7 +169,7 @@ const updatePlayerName = (function() {
       const pressEnterMsg = document.querySelector('#p2-name > div');
 
       const p2NameChange = () => {
-         if (nameDisplay.classList.contains('show-player2-name')){
+         if (nameDisplay.classList.contains('show-player2-name')) {
             p1Form.classList.toggle('hide-p2-name-form');
 
             nameDisplay.textContent = '';
@@ -269,6 +269,103 @@ const updateScoreboard = (function() {
    };
 
    return {updateScoreP1Winner, updateScoreP2Winner, updateTie};
+})();
+
+const changePawn = (function() {
+   const changePawnBtn = document.querySelectorAll('.change-pawn');
+
+   (function () {
+      const pawn = document.querySelector('.p1-scoreboard div .chosen-pawn');
+      const pawnInput = document.querySelector('.p1-scoreboard div .pawn-input');
+
+      const p1ChangePawn = () => {
+         if (pawnInput.classList.contains('hide-pawn-input')) {
+            pawn.textContent = '';
+            pawn.classList.toggle('hide-pawn');
+
+            pawnInput.classList.toggle('hide-pawn-input');
+            pawnInput.focus();
+         } else {
+            pawn.textContent = player.player1.pawn;
+
+            pawnInput.value = '';
+            pawnInput.classList.toggle('hide-pawn-input');
+         }
+      };
+
+      const p1SubmitPawn = (e) => {
+         const gameBoardPawn = document.querySelectorAll('.pawn');
+
+         if (e.code == 'Enter' && pawnInput.value.length == 0) {
+            e.preventDefault();
+         } else if (e.code == 'Enter') {
+            [...gameBoardPawn].map(pawn => {
+               if (pawn.textContent.includes(player.player1.pawn)) {
+                  pawn.textContent = pawnInput.value;
+               }
+            });
+
+            player.player1.pawn = pawnInput.value;
+
+            pawn.textContent = player.player1.pawn;
+            pawn.classList.toggle('hide-pawn');
+
+            pawnInput.value = '';
+            pawnInput.classList.toggle('hide-pawn-input');
+         }
+      };
+
+      changePawnBtn[0].addEventListener('click', p1ChangePawn);
+
+      pawnInput.addEventListener('keydown', p1SubmitPawn);
+   })();
+
+   (function () {
+      const pawn = document.querySelector('.p2-scoreboard div .chosen-pawn');
+      const pawnInput = document.querySelector('.p2-scoreboard div .pawn-input');
+
+      const p2ChangePawn = () => {
+         if (pawnInput.classList.contains('hide-pawn-input')) {
+            pawn.textContent = '';
+            pawn.classList.toggle('hide-pawn');
+
+            pawnInput.classList.toggle('hide-pawn-input');
+            pawnInput.focus();
+         } else {
+            pawn.textContent = player.player2.pawn;
+
+            pawnInput.value = '';
+            pawnInput.classList.toggle('hide-pawn-input');
+         }
+      };
+
+      const p2SubmitPawn = (e) => {
+         const gameBoardPawn = document.querySelectorAll('.pawn');
+
+         if (e.code == 'Enter' && pawnInput.value.length == 0) {
+            e.preventDefault();
+         } else if (e.code == 'Enter') {
+            [...gameBoardPawn].map(pawn => {
+               if (pawn.textContent.includes(player.player2.pawn)) {
+                  pawn.textContent = pawnInput.value;
+               }
+            });
+
+            player.player2.pawn = pawnInput.value;
+
+            pawn.textContent = player.player2.pawn;
+            pawn.classList.toggle('hide-pawn');
+
+            pawnInput.value = '';
+            pawnInput.classList.toggle('hide-pawn-input');
+         }
+      };
+
+      changePawnBtn[1].addEventListener('click', p2ChangePawn);
+
+      pawnInput.addEventListener('keydown', p2SubmitPawn);
+   })();
+
 })();
 
 const gameResult = (function() {
