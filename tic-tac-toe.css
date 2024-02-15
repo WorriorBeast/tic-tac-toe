@@ -173,3 +173,31 @@ input:focus {
 #p2-name-input::placeholder {
    color: orange;
 }
+
+.hide-pawn {
+   height: 0;
+   width: 0;
+}
+
+.p1-scoreboard div .pawn-input {
+   color: #818cf8;
+}
+
+.p2-scoreboard div .pawn-input {
+   color: orange;
+}
+
+.pawn-input {
+   font-family: fantasy;
+   font-size: 1rem;
+   width: 2ch;
+   background-color: transparent;
+   border: none;
+   padding: 0;
+}
+
+.hide-pawn-input {
+   height: 0;
+   width: 0;
+   border: 0;
+}
