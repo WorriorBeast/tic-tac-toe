@@ -57,7 +57,7 @@ const gameBoard = (function() {
             }
          });
       }
-   }
+   };
    playGame();
 
    const resetGameBoard = () => {
@@ -71,6 +71,50 @@ const gameBoard = (function() {
          pawn[i].textContent = '';
       }
    };
+
+   const resetBtn = document.querySelector('.reset');
+
+   const resetGame = () => {
+      const player1Name = document.querySelector('#player1-name');
+      const player2Name = document.querySelector('#player2-name');
+      const wins = document.querySelectorAll('.wins');
+      const loses = document.querySelectorAll('.loses');
+      const ties = document.querySelectorAll('.ties');
+      const pawn = document.querySelectorAll('.chosen-pawn');
+
+      let p1 = player.player1;
+      let p2 = player.player2;
+
+      p1.user = 'PLAYER 1';
+      p1.pawn = 'X';
+      p1.resetScore();
+      updateScoreboard.updateTie().resetTie();
+
+      p2.user = 'PLAYER 2';
+      p2.pawn = 'O';
+      p2.resetScore();
+
+      player1Tiles = [];
+      player2Tiles = [];
+      switchPlayer = 1;
+
+      player1Name.textContent = p1.user;
+      player2Name.textContent = p2.user;
+
+      [...gameTile].map(tile => tile.firstElementChild.textContent = '');
+
+      [...wins].map(win => win.textContent = 'Wins: 0');
+
+      [...loses].map(loss => loss.textContent = 'Loses: 0');
+
+      [...ties].map(tie => tie.textContent = 'Ties: 0');
+
+      pawn[0].textContent = p1.pawn;
+
+      pawn[1].textContent = p2.pawn;
+   };
+
+   resetBtn.addEventListener('click', resetGame);
 
    return {resetGameBoard};
 })();
@@ -86,7 +130,12 @@ const player = (function() {
       const getLoses = () => gameLoss;
       const loses = () => gameLoss++;
 
-      return {user, pawn, color, getWins, wins, getLoses, loses};
+      const resetScore = () => {
+         gameWin = 0;
+         gameLoss = 0;
+      };
+
+      return {user, pawn, color, getWins, wins, getLoses, loses, resetScore};
    }
 
    const player1 = createPlayer('Player 1', 'X', '#818cf8');
@@ -263,9 +312,13 @@ const updateScoreboard = (function() {
 
       const getTieCount = () => tieCount;
 
+      const resetTie = () => tieCount = 0;
+
       for (let i = 0; i < draw.length; i++) {
          draw[i].textContent = `Ties: ${getTieCount()}`;
       }
+
+      return {resetTie};
    };
 
    return {updateScoreP1Winner, updateScoreP2Winner, updateTie};
